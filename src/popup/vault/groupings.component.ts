@@ -227,7 +227,7 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
         const filterDeleted = (c: CipherView) => !c.isDeleted;
         if (timeout == null) {
             this.hasSearched = this.searchService.isSearchable(this.searchText);
-            this.ciphers = await this.searchService.searchCiphers(this.searchText, filterDeleted, this.allCiphers);
+            this.ciphers = await this.searchService.searchCiphers("*" + this.searchText + "*", filterDeleted, this.allCiphers);
             return;
         }
         this.searchPending = true;
@@ -236,7 +236,7 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
             if (!this.hasLoadedAllCiphers && !this.hasSearched) {
                 await this.loadCiphers();
             } else {
-                this.ciphers = await this.searchService.searchCiphers(this.searchText, filterDeleted, this.allCiphers);
+                this.ciphers = await this.searchService.searchCiphers("*" + this.searchText + "*", filterDeleted, this.allCiphers);
             }
             this.searchPending = false;
         }, timeout);
